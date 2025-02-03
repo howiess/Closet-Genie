@@ -44,12 +44,12 @@ struct Home: View {
 
 // Home Feed View
 struct HomeFeed: View {
-    let posts = Array(repeating: PostModel(username: "username", date: "Jan 1, 2025"), count: 5) // Now 5 posts
+    let posts = Array(repeating: PostModel(username: "user A", date: "Jan 1, 2025"), count: 5) // 5 posts for scrolling
 
     var body: some View {
         NavigationView {
             ScrollView {
-                LazyVStack(spacing: 20) { // Increased spacing for better scrolling
+                LazyVStack(spacing: 16) { // Space between posts
                     ForEach(posts.indices, id: \.self) { index in
                         PostView(post: posts[index])
                     }
@@ -60,6 +60,8 @@ struct HomeFeed: View {
         }
     }
 }
+
+
 
 // Post Model
 struct PostModel {
@@ -73,7 +75,7 @@ struct PostView: View {
 
     var body: some View {
         VStack(alignment: .leading, spacing: 8) {
-            // Heading
+            // Heading with Grey Background
             HStack {
                 Image(systemName: "globe") // Placeholder profile image
                     .resizable()
@@ -91,18 +93,21 @@ struct PostView: View {
 
                 Spacer()
             }
-            .padding(.horizontal)
+            .padding()
+            .background(Color.gray.opacity(0.2)) // Light grey background
+            .cornerRadius(5) // Slight rounded edges
 
-            // Image Content
+            // Image Content (Full Width)
             Image(systemName: "globe") // Placeholder content image
                 .resizable()
                 .scaledToFill()
-                .frame(maxWidth: .infinity)
+                .frame(maxWidth: .infinity) // Full width
                 .frame(height: UIScreen.main.bounds.width) // Square aspect ratio
                 .clipped()
         }
     }
 }
+
 
 #Preview {
     Home()
